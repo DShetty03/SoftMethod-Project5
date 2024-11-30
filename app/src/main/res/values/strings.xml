@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">RUPizza</string>
+    <string name="chicago_style">Chicago Style</string>
+    <string name="ny_style">New York Style</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="pizza_title">Select Your Pizza</string>
+    <string-array name="pizza_types">
+        <item>Build your own</item>
+        <item>Deluxe</item>
+        <item>BBQ Chicken</item>
+        <item>Meatzza</item>
+    </string-array>
 </resources>
