@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to RU Pizza!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/chicagoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chicago Style"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/nyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NY Style"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/currentOrderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Order"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/placedOrdersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Placed Orders"
+        android:padding="16dp"/>
+</LinearLayout>
