@@ -1,5 +1,6 @@
 package com.example.rupizza
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
@@ -12,27 +13,39 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.rupizza.databinding.ActivityMainBinding
 import com.example.rupizza.ui.theme.RUPizzaTheme
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        // Use View Binding to inflate layout
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RUPizzaTheme {
-        Greeting("Android")
+        // Set up button click listeners for navigation
+        binding.chicagoButton.setOnClickListener {
+            val intent = Intent(this, ChicagoActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.nyButton.setOnClickListener {
+            val intent = Intent(this, NYActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.currentOrderButton.setOnClickListener {
+            val intent = Intent(this, OrderActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.placedOrdersButton.setOnClickListener {
+            val intent = Intent(this, PlacedOrdersActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

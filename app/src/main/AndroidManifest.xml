@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RUPizza"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -23,6 +24,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Chicago Pizza Activity -->
+        <activity
+            android:name=".ChicagoActivity"
+            android:label="Chicago Pizza"
+            android:exported="true" />
+
+        <!-- New York Pizza Activity -->
+        <activity
+            android:name=".NYActivity"
+            android:label="NY Pizza"
+            android:exported="true" />
+
+        <!-- Current Order Activity -->
+        <activity
+            android:name=".OrderActivity"
+            android:label="Current Order"
+            android:exported="true" />
+
+        <!-- Placed Orders Activity -->
+        <activity
+            android:name=".PlacedOrdersActivity"
+            android:label="Placed Orders"
+            android:exported="true" />
     </application>
 
 </manifest>

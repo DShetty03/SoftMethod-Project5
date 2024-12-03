@@ -8,23 +8,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 /**
- * Activity for managing the Chicago-style pizza ordering interface.
+ * Activity for managing the NY-style pizza ordering interface.
  * Handles the selection of pizza type, size, crust, toppings, and order processing.
  *
  * @author Divit Shetty
  */
-public class ChicagoActivity extends AppCompatActivity {
+public class NYActivity extends AppCompatActivity {
 
-    private Spinner typeChicagoSpinner, spinnerCrustChicago;
-    private ListView listViewAvailableToppingsChicago, listViewSelectedToppingsChicago;
-    private ImageView imageChicago;
-    private RadioGroup sizeGroupChicago;
-    private RadioButton radioSmallChicago, radioMediumChicago, radioLargeChicago;
-    private EditText editTextPriceChicago;
-    private Button buttonAddToOrderChicago;
+    private Spinner typeNYSpinner, spinnerCrustNY;
+    private ListView listViewAvailableToppingsNY, listViewSelectedToppingsNY;
+    private ImageView imageNY;
+    private RadioGroup sizeGroupNY;
+    private RadioButton radioSmallNY, radioMediumNY, radioLargeNY;
+    private EditText editTextCrustNY, editTextPriceNY;
+    private Button buttonAddToOrderNY;
 
     private Order order;
-    private PizzaFactory chicagoFactory = new ChicagoPizza();
+    private PizzaFactory nyFactory = new NYPizza();
     private Pizza current;
 
     private ArrayAdapter<String> crustAdapter, availableToppingsAdapter, selectedToppingsAdapter;
@@ -34,20 +34,20 @@ public class ChicagoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chicago_activity);
+        setContentView(R.layout.ny_activity);
 
         // Initialize Views
-        typeChicagoSpinner = findViewById(R.id.typeChicagoSpinner);
-        spinnerCrustChicago = findViewById(R.id.spinnerCrustChicago);
-        listViewAvailableToppingsChicago = findViewById(R.id.listViewAvailableToppingsChicago);
-        listViewSelectedToppingsChicago = findViewById(R.id.listViewSelectedToppingsChicago);
-        imageChicago = findViewById(R.id.imageChicago);
-        sizeGroupChicago = findViewById(R.id.radioGroupSizeChicago);
-        radioSmallChicago = findViewById(R.id.radioSmallChicago);
-        radioMediumChicago = findViewById(R.id.radioMediumChicago);
-        radioLargeChicago = findViewById(R.id.radioLargeChicago);
-        editTextPriceChicago = findViewById(R.id.editTextPriceChicago);
-        buttonAddToOrderChicago = findViewById(R.id.buttonAddOrderChicago);
+        typeNYSpinner = findViewById(R.id.typeNYSpinner);
+        spinnerCrustNY = findViewById(R.id.spinnerCrustNY);
+        listViewAvailableToppingsNY = findViewById(R.id.listViewAvailableToppingsNY);
+        listViewSelectedToppingsNY = findViewById(R.id.listViewSelectedToppingsNY);
+        imageNY = findViewById(R.id.imageNY);
+        sizeGroupNY = findViewById(R.id.radioGroupSizeNY);
+        radioSmallNY = findViewById(R.id.radioSmallNY);
+        radioMediumNY = findViewById(R.id.radioMediumNY);
+        radioLargeNY = findViewById(R.id.radioLargeNY);
+        editTextPriceNY = findViewById(R.id.editTextPriceNY);
+        buttonAddToOrderNY = findViewById(R.id.buttonAddOrderNY);
 
         // Load shared data
         order = SharedData.getInstance().getOrder();
@@ -60,30 +60,30 @@ public class ChicagoActivity extends AppCompatActivity {
         loadToppingOptions();
 
         // Handle size changes
-        sizeGroupChicago.setOnCheckedChangeListener((group, checkedId) -> updateSizePrice());
+        sizeGroupNY.setOnCheckedChangeListener((group, checkedId) -> updateSizePrice());
 
         // Handle add to order button
-        buttonAddToOrderChicago.setOnClickListener(v -> handleAddOrder());
+        buttonAddToOrderNY.setOnClickListener(v -> handleAddOrder());
 
         // Initialize default pizza
         initializeDefaultPizza();
     }
 
     private void initializeDefaultPizza() {
-        radioSmallChicago.setChecked(true);
-        current = chicagoFactory.createBuildYourOwn(Size.SMALL);
-        spinnerCrustChicago.setSelection(0); // Set the default crust
+        radioSmallNY.setChecked(true);
+        current = nyFactory.createBuildYourOwn(Size.SMALL);
+        spinnerCrustNY.setSelection(0); // Set the default crust
         resetToppings();
         updateUI();
     }
 
     private void loadCrustOptions() {
-        String[] crustOptions = {"Deep_Dish", "Stuffed", "Pan"};
+        String[] crustOptions = {"Brooklyn", "Thin", "Hand_Tossed"};
         crustAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, crustOptions);
         crustAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCrustChicago.setAdapter(crustAdapter);
+        spinnerCrustNY.setAdapter(crustAdapter);
 
-        spinnerCrustChicago.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerCrustNY.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedCrust = (String) parent.getItemAtPosition(position);
@@ -104,9 +104,9 @@ public class ChicagoActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.pizza_types));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeChicagoSpinner.setAdapter(adapter);
+        typeNYSpinner.setAdapter(adapter);
 
-        typeChicagoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        typeNYSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String type = (String) parent.getItemAtPosition(position);
@@ -123,12 +123,12 @@ public class ChicagoActivity extends AppCompatActivity {
         loadAvailableToppings();
 
         availableToppingsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convertToppingsToString(availableToppings));
-        listViewAvailableToppingsChicago.setAdapter(availableToppingsAdapter);
+        listViewAvailableToppingsNY.setAdapter(availableToppingsAdapter);
 
         selectedToppingsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convertToppingsToString(selectedToppings));
-        listViewSelectedToppingsChicago.setAdapter(selectedToppingsAdapter);
+        listViewSelectedToppingsNY.setAdapter(selectedToppingsAdapter);
 
-        listViewAvailableToppingsChicago.setOnItemClickListener((parent, view, position, id) -> {
+        listViewAvailableToppingsNY.setOnItemClickListener((parent, view, position, id) -> {
             Topping topping = availableToppings.get(position);
             availableToppings.remove(topping);
             selectedToppings.add(topping);
@@ -137,7 +137,7 @@ public class ChicagoActivity extends AppCompatActivity {
             updateUI();
         });
 
-        listViewSelectedToppingsChicago.setOnItemClickListener((parent, view, position, id) -> {
+        listViewSelectedToppingsNY.setOnItemClickListener((parent, view, position, id) -> {
             Topping topping = selectedToppings.get(position);
             selectedToppings.remove(topping);
             availableToppings.add(topping);
@@ -190,51 +190,53 @@ public class ChicagoActivity extends AppCompatActivity {
 
         switch (type) {
             case "Deluxe":
-                current = chicagoFactory.createDeluxe(size);
+                current = nyFactory.createDeluxe(size);
                 resetToppings();
                 break;
             case "BBQ Chicken":
-                current = chicagoFactory.createBBQChicken(size);
+                current = nyFactory.createBBQChicken(size);
                 resetToppings();
                 break;
             case "Meatzza":
-                current = chicagoFactory.createMeatzza(size);
+                current = nyFactory.createMeatzza(size);
                 resetToppings();
                 break;
             default:
-                current = chicagoFactory.createBuildYourOwn(size);
+                current = nyFactory.createBuildYourOwn(size);
                 resetToppings();
         }
         if (current != null) {
             String crustName = current.getCrust().name().replace("_", " ");
             int crustPosition = crustAdapter.getPosition(crustName);
             if (crustPosition >= 0) {
-                spinnerCrustChicago.setSelection(crustPosition);
+                spinnerCrustNY.setSelection(crustPosition);
             }
         }
         updateUI();
     }
 
     private Size getSelectedSize() {
-        if (radioSmallChicago.isChecked()) return Size.SMALL;
-        if (radioMediumChicago.isChecked()) return Size.MEDIUM;
+        if (radioSmallNY.isChecked()) return Size.SMALL;
+        if (radioMediumNY.isChecked()) return Size.MEDIUM;
         return Size.LARGE;
     }
 
     private void updateUI() {
-        editTextPriceChicago.setText(String.valueOf(current.price()));
+        editTextPriceNY.setText(String.valueOf(current.price()));
     }
 
     private void handleAddOrder() {
         order.addPizza(current);
         Toast.makeText(this, "Pizza added to order!", Toast.LENGTH_SHORT).show();
     }
-
     private void updateSizePrice() {
         if (current == null) {
-            current = chicagoFactory.createBuildYourOwn(getSelectedSize());
+            // If the pizza object is null, initialize a default pizza
+            current = nyFactory.createBuildYourOwn(getSelectedSize());
         }
+        // Update the pizza size
         current.setSize(getSelectedSize());
+        // Update the price and UI
         updateUI();
     }
 }

@@ -7,24 +7,24 @@
 
     <!-- Title -->
     <TextView
-        android:id="@+id/titleChicago"
+        android:id="@+id/titleNY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chicago Style Pizza"
+        android:text="NY Style Pizza"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <!-- Pizza Type Dropdown -->
     <Spinner
-        android:id="@+id/typeChicagoSpinner"
+        android:id="@+id/typeNYSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
     <!-- Radio Buttons for Pizza Size -->
     <RadioGroup
-        android:id="@+id/radioGroupSizeChicago"
+        android:id="@+id/radioGroupSizeNY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -32,19 +32,19 @@
         android:layout_marginTop="16dp">
 
         <RadioButton
-            android:id="@+id/radioSmallChicago"
+            android:id="@+id/radioSmallNY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Small" />
 
         <RadioButton
-            android:id="@+id/radioMediumChicago"
+            android:id="@+id/radioMediumNY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Medium" />
 
         <RadioButton
-            android:id="@+id/radioLargeChicago"
+            android:id="@+id/radioLargeNY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large" />
@@ -52,13 +52,13 @@
 
     <!-- Image of Pizza -->
     <ImageView
-        android:id="@+id/imageChicago"
+        android:id="@+id/imageNY"
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
-        android:src="@drawable/plainchicago" />
+        android:src="@drawable/plainny" />
 
     <!-- Crust Type -->
     <TextView
@@ -68,12 +68,12 @@
         android:layout_marginTop="16dp" />
 
     <Spinner
-        android:id="@+id/spinnerCrustChicago"
+        android:id="@+id/spinnerCrustNY"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
-    <!-- Toppings -->
+    <!-- Available Toppings -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,10 +81,11 @@
         android:layout_marginTop="16dp" />
 
     <ListView
-        android:id="@+id/listViewAvailableToppingsChicago"
+        android:id="@+id/listViewAvailableToppingsNY"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
+    <!-- Selected Toppings -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,7 +93,7 @@
         android:layout_marginTop="16dp" />
 
     <ListView
-        android:id="@+id/listViewSelectedToppingsChicago"
+        android:id="@+id/listViewSelectedToppingsNY"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
@@ -104,14 +105,14 @@
         android:layout_marginTop="16dp" />
 
     <EditText
-        android:id="@+id/editTextPriceChicago"
+        android:id="@+id/editTextPriceNY"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal" />
 
     <!-- Add to Order Button -->
     <Button
-        android:id="@+id/buttonAddOrderChicago"
+        android:id="@+id/buttonAddOrderNY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Order"
