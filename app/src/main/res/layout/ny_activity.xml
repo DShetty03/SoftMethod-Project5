@@ -1,121 +1,126 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:fillViewport="true">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/titleNY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NY Style Pizza"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center" />
-
-    <!-- Pizza Type Dropdown -->
-    <Spinner
-        android:id="@+id/typeNYSpinner"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <!-- Radio Buttons for Pizza Size -->
-    <RadioGroup
-        android:id="@+id/radioGroupSizeNY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp">
-
-        <RadioButton
-            android:id="@+id/radioSmallNY"
+        <!-- Title -->
+        <TextView
+            android:id="@+id/titleNY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Small" />
+            android:text="NY Style Pizza"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
 
-        <RadioButton
-            android:id="@+id/radioMediumNY"
+        <!-- Pizza Type Dropdown -->
+        <Spinner
+            android:id="@+id/typeNYSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Radio Buttons for Pizza Size -->
+        <RadioGroup
+            android:id="@+id/radioGroupSizeNY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium" />
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
 
-        <RadioButton
-            android:id="@+id/radioLargeNY"
+            <RadioButton
+                android:id="@+id/radioSmallNY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Small" />
+
+            <RadioButton
+                android:id="@+id/radioMediumNY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium" />
+
+            <RadioButton
+                android:id="@+id/radioLargeNY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large" />
+        </RadioGroup>
+
+        <!-- Image of Pizza -->
+        <ImageView
+            android:id="@+id/imageNY"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/plainny" />
+
+        <!-- Crust Type -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Large" />
-    </RadioGroup>
+            android:text="Crust"
+            android:layout_marginTop="16dp" />
 
-    <!-- Image of Pizza -->
-    <ImageView
-        android:id="@+id/imageNY"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/plainny" />
+        <Spinner
+            android:id="@+id/spinnerCrustNY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
-    <!-- Crust Type -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crust"
-        android:layout_marginTop="16dp" />
+        <!-- Available Toppings -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available Toppings"
+            android:layout_marginTop="16dp" />
 
-    <Spinner
-        android:id="@+id/spinnerCrustNY"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAvailableToppingsNY"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
 
-    <!-- Available Toppings -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Available Toppings"
-        android:layout_marginTop="16dp" />
+        <!-- Selected Toppings -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected Toppings"
+            android:layout_marginTop="16dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAvailableToppingsNY"
-        android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSelectedToppingsNY"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
 
-    <!-- Selected Toppings -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selected Toppings"
-        android:layout_marginTop="16dp" />
+        <!-- Price -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price $"
+            android:layout_marginTop="16dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewSelectedToppingsNY"
-        android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        <EditText
+            android:id="@+id/editTextPriceNY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
 
-    <!-- Price -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price $"
-        android:layout_marginTop="16dp" />
-
-    <EditText
-        android:id="@+id/editTextPriceNY"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
-
-    <!-- Add to Order Button -->
-    <Button
-        android:id="@+id/buttonAddOrderNY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to Order"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp" />
-</LinearLayout>
+        <!-- Add to Order Button -->
+        <Button
+            android:id="@+id/buttonAddOrderNY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add to Order"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>
