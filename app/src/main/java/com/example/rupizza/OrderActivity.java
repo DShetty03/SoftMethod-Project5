@@ -34,7 +34,6 @@ public class OrderActivity extends AppCompatActivity {
     private Double total;
     private int selectedItemPosition = -1; // To track selected item position
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +54,6 @@ public class OrderActivity extends AppCompatActivity {
         editTextOrderNum.setText(Integer.toString(number));
         updateMoney();
 
-        // Create a simple ArrayAdapter to display pizza names
         adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1, // Layout for each item in the list
@@ -67,7 +65,6 @@ public class OrderActivity extends AppCompatActivity {
         listViewPizzas.setOnItemClickListener((parent, view, position, id) -> {
             selectedItemPosition = position;
 
-            // Highlight the selected item
             for (int i = 0; i < listViewPizzas.getChildCount(); i++) {
                 if (i == position) {
                     listViewPizzas.getChildAt(i).setBackgroundColor(Color.LTGRAY); // Highlight color
@@ -111,9 +108,6 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Updates the subtotal, tax, and total cost based on the current pizzas in the order.
-     */
     private void updateMoney() {
         sub = SharedData.getInstance().getOrder().calculateSubtotal();
         taxTot = SharedData.getInstance().getOrder().calculateTax(.06625);
@@ -129,17 +123,11 @@ public class OrderActivity extends AppCompatActivity {
         Order newOrder = SharedData.getInstance().getManager().createOrder();
         SharedData.getInstance().setOrder(newOrder);
 
-        Log.d("DEBUG", "OrderManager now has " + SharedData.getInstance().getManager().getOrders().size() + " orders.");
-
         // Update the order number and prices
         number = SharedData.getInstance().getOrder().getNumber();
 
-        Log.d("DEBUG", "Last order was " + SharedData.getInstance().getManager().getOrders().get(number-2).toString() + ".");
-
         editTextOrderNum.setText(Integer.toString(number));
         updateMoney();
-
-        Log.d("DEBUG", "we should be on the new order now " + SharedData.getInstance().getManager().getOrders().get(number-1).toString() + ".");
 
         // Get the new pizzas list and update the adapter
         pizzas = new ArrayList<>(SharedData.getInstance().getOrder().getPizzas());
@@ -150,10 +138,6 @@ public class OrderActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged(); // Notify the adapter of changes
 
         selectedItemPosition = -1;
-
-        Log.d("DEBUG", "check OrderManager now has " + SharedData.getInstance().getManager().getOrders().size() + " orders.");
-        Log.d("DEBUG", "check Last order was " + SharedData.getInstance().getManager().getOrders().get(number-2).toString() + ".");
-
 
         Toast.makeText(this, "New order placed!", Toast.LENGTH_SHORT).show();
     }

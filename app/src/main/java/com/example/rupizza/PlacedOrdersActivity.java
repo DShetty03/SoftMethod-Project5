@@ -40,7 +40,6 @@ public class PlacedOrdersActivity extends AppCompatActivity {
         // Populate the spinner with order numbers
         populateSpinner();
 
-        // Initialize the ListView adapter
         listAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -48,7 +47,6 @@ public class PlacedOrdersActivity extends AppCompatActivity {
         );
         listViewOrderPizzas.setAdapter(listAdapter);
 
-        // Load the first order's pizzas into the ListView and update the total
         if (!allOrders.isEmpty()) {
             loadOrderDetails(0); // Load the first order by default
         }
@@ -97,9 +95,7 @@ public class PlacedOrdersActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Populates the Spinner with order numbers from allOrders.
-     */
+
     private void populateSpinner() {
         ArrayList<String> orderNumbers = new ArrayList<>();
         for (Order order : allOrders) {
@@ -116,10 +112,6 @@ public class PlacedOrdersActivity extends AppCompatActivity {
         spinnerOrderNum.setAdapter(spinnerAdapter);
     }
 
-    /**
-     * Loads the details of the selected order (pizzas and total) into the ListView and EditText.
-     * @param orderIndex Index of the selected order in the allOrders list.
-     */
     private void loadOrderDetails(int orderIndex) {
         // Get the selected order
         Order selectedOrder = allOrders.get(orderIndex);
@@ -131,7 +123,6 @@ public class PlacedOrdersActivity extends AppCompatActivity {
         Log.d("DEBUG", "Loading order: " + selectedOrder);
         Log.d("DEBUG", "Pizzas in order: " + pizzas);
 
-        // Update the ListView's adapter
         listAdapter.clear(); // Clear the current items in the adapter
         listAdapter.addAll(pizzas); // Add the pizzas from the selected order
         listAdapter.notifyDataSetChanged(); // Notify the adapter to refresh the ListView
