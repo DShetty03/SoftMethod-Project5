@@ -5,6 +5,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 /**
@@ -16,7 +19,8 @@ import java.util.ArrayList;
 public class ChicagoActivity extends AppCompatActivity {
 
     private Spinner typeChicagoSpinner, spinnerCrustChicago;
-    private ListView listViewAvailableToppingsChicago, listViewSelectedToppingsChicago;
+    private RecyclerView recyclerViewAvailableToppingsChicago, recyclerViewSelectedToppingsChicago;
+    private ToppingAdapter availableToppingsAdapter, selectedToppingsAdapter;
     private ImageView imageChicago;
     private RadioGroup sizeGroupChicago;
     private RadioButton radioSmallChicago, radioMediumChicago, radioLargeChicago;
@@ -27,7 +31,6 @@ public class ChicagoActivity extends AppCompatActivity {
     private PizzaFactory chicagoFactory = new ChicagoPizza();
     private Pizza current;
 
-    private ArrayAdapter<String> crustAdapter, availableToppingsAdapter, selectedToppingsAdapter;
     private ArrayList<Topping> availableToppings = new ArrayList<>();
     private ArrayList<Topping> selectedToppings = new ArrayList<>();
 
@@ -39,8 +42,8 @@ public class ChicagoActivity extends AppCompatActivity {
         // Initialize Views
         typeChicagoSpinner = findViewById(R.id.typeChicagoSpinner);
         spinnerCrustChicago = findViewById(R.id.spinnerCrustChicago);
-        listViewAvailableToppingsChicago = findViewById(R.id.listViewAvailableToppingsChicago);
-        listViewSelectedToppingsChicago = findViewById(R.id.listViewSelectedToppingsChicago);
+        recyclerViewAvailableToppingsChicago = findViewById(R.id.recyclerViewAvailableToppingsChicago);
+        recyclerViewSelectedToppingsChicago = findViewById(R.id.recyclerViewSelectedToppingsChicago);
         imageChicago = findViewById(R.id.imageChicago);
         sizeGroupChicago = findViewById(R.id.radioGroupSizeChicago);
         radioSmallChicago = findViewById(R.id.radioSmallChicago);
@@ -57,7 +60,10 @@ public class ChicagoActivity extends AppCompatActivity {
 
         // Load options for pizza types and toppings
         loadPizzaTypes();
-        loadToppingOptions();
+        loadAvailableToppings();
+
+        // Set up RecyclerViews
+        setupRecyclerViews();
 
         // Handle size changes
         sizeGroupChicago.setOnCheckedChangeListener((group, checkedId) -> updateSizePrice());
@@ -79,7 +85,7 @@ public class ChicagoActivity extends AppCompatActivity {
 
     private void loadCrustOptions() {
         String[] crustOptions = {"Deep_Dish", "Stuffed", "Pan"};
-        crustAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, crustOptions);
+        ArrayAdapter<String> crustAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, crustOptions);
         crustAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCrustChicago.setAdapter(crustAdapter);
 
@@ -119,39 +125,13 @@ public class ChicagoActivity extends AppCompatActivity {
         });
     }
 
-    private void loadToppingOptions() {
-        loadAvailableToppings();
-
-        availableToppingsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convertToppingsToString(availableToppings));
-        listViewAvailableToppingsChicago.setAdapter(availableToppingsAdapter);
-
-        selectedToppingsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convertToppingsToString(selectedToppings));
-        listViewSelectedToppingsChicago.setAdapter(selectedToppingsAdapter);
-
-        listViewAvailableToppingsChicago.setOnItemClickListener((parent, view, position, id) -> {
-            Topping topping = availableToppings.get(position);
-            availableToppings.remove(topping);
-            selectedToppings.add(topping);
-            current.addTopping(topping);
-            updateToppingAdapters();
-            updateUI();
-        });
-
-        listViewSelectedToppingsChicago.setOnItemClickListener((parent, view, position, id) -> {
-            Topping topping = selectedToppings.get(position);
-            selectedToppings.remove(topping);
-            availableToppings.add(topping);
-            current.removeTopping(topping);
-            updateToppingAdapters();
-            updateUI();
-        });
-    }
 
     private void resetToppings() {
         availableToppings.clear();
         selectedToppings.clear();
         loadAvailableToppings();
-        updateToppingAdapters();
+        availableToppingsAdapter.notifyDataSetChanged();
+        selectedToppingsAdapter.notifyDataSetChanged();
     }
 
     private void loadAvailableToppings() {
@@ -167,6 +147,32 @@ public class ChicagoActivity extends AppCompatActivity {
         availableToppings.add(Topping.HAM);
     }
 
+    private void setupRecyclerViews() {
+        // Available Toppings RecyclerView
+        availableToppingsAdapter = new ToppingAdapter(this, availableToppings, topping -> {
+            availableToppings.remove(topping);
+            selectedToppings.add(topping);
+            availableToppingsAdapter.notifyDataSetChanged();
+            selectedToppingsAdapter.notifyDataSetChanged();
+            current.addTopping(topping);
+            updateUI();
+        });
+        recyclerViewAvailableToppingsChicago.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAvailableToppingsChicago.setAdapter(availableToppingsAdapter);
+
+        // Selected Toppings RecyclerView
+        selectedToppingsAdapter = new ToppingAdapter(this, selectedToppings, topping -> {
+            selectedToppings.remove(topping);
+            availableToppings.add(topping);
+            availableToppingsAdapter.notifyDataSetChanged();
+            selectedToppingsAdapter.notifyDataSetChanged();
+            current.removeTopping(topping);
+            updateUI();
+        });
+        recyclerViewSelectedToppingsChicago.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewSelectedToppingsChicago.setAdapter(selectedToppingsAdapter);
+    }
+
     private ArrayList<String> convertToppingsToString(ArrayList<Topping> toppings) {
         ArrayList<String> toppingStrings = new ArrayList<>();
         for (Topping topping : toppings) {
@@ -175,15 +181,6 @@ public class ChicagoActivity extends AppCompatActivity {
         return toppingStrings;
     }
 
-    private void updateToppingAdapters() {
-        availableToppingsAdapter.clear();
-        availableToppingsAdapter.addAll(convertToppingsToString(availableToppings));
-        availableToppingsAdapter.notifyDataSetChanged();
-
-        selectedToppingsAdapter.clear();
-        selectedToppingsAdapter.addAll(convertToppingsToString(selectedToppings));
-        selectedToppingsAdapter.notifyDataSetChanged();
-    }
 
     private void handleTypeChange(String type) {
         Size size = getSelectedSize();
@@ -204,13 +201,6 @@ public class ChicagoActivity extends AppCompatActivity {
             default:
                 current = chicagoFactory.createBuildYourOwn(size);
                 resetToppings();
-        }
-        if (current != null) {
-            String crustName = current.getCrust().name().replace("_", " ");
-            int crustPosition = crustAdapter.getPosition(crustName);
-            if (crustPosition >= 0) {
-                spinnerCrustChicago.setSelection(crustPosition);
-            }
         }
         updateUI();
     }

@@ -73,17 +73,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
-    <!-- Toppings -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Available Toppings"
         android:layout_marginTop="16dp" />
 
-    <ListView
-        android:id="@+id/listViewAvailableToppingsChicago"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAvailableToppingsChicago"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="150dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,10 +90,10 @@
         android:text="Selected Toppings"
         android:layout_marginTop="16dp" />
 
-    <ListView
-        android:id="@+id/listViewSelectedToppingsChicago"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSelectedToppingsChicago"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="150dp" />
 
     <!-- Price -->
     <TextView

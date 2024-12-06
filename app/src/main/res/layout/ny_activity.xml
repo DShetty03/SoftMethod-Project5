@@ -80,10 +80,10 @@
         android:text="Available Toppings"
         android:layout_marginTop="16dp" />
 
-    <ListView
-        android:id="@+id/listViewAvailableToppingsNY"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAvailableToppingsNY"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="150dp" />
 
     <!-- Selected Toppings -->
     <TextView
@@ -92,10 +92,10 @@
         android:text="Selected Toppings"
         android:layout_marginTop="16dp" />
 
-    <ListView
-        android:id="@+id/listViewSelectedToppingsNY"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSelectedToppingsNY"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="150dp" />
 
     <!-- Price -->
     <TextView
